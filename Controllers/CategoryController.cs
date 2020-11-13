@@ -7,6 +7,8 @@ using ProductCatalog.Models;
 
 namespace ProductCatalog.Controllers
 {
+    [Route("v1/categories")]
+    [ApiController]
     public class CategoryController : Controller
     {
         private readonly StoreDataContext _context;
@@ -16,7 +18,6 @@ namespace ProductCatalog.Controllers
             _context = context;
         }
 
-        [Route("v1/categories")]
         [HttpGet]
         [ResponseCache(Duration = 3600)]
         public IEnumerable<Category> Get()
@@ -24,23 +25,20 @@ namespace ProductCatalog.Controllers
             return _context.Categories.AsNoTracking().ToList();
         }
 
-        [Route("v1/categories/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public Category Get(int id)
         {
             // Find() ainda não suporta AsNoTracking
             return _context.Categories.AsNoTracking().Where(x => x.Id == id).FirstOrDefault();
         }
 
-        [Route("v1/categories/{id}/products")]
-        [HttpGet]
+        [HttpGet("{id}/products")]
         [ResponseCache(Duration = 30)]
         public IEnumerable<Product> GetProducts(int id)
         {
             return _context.Products.AsNoTracking().Where(x => x.CategoryId == id).ToList();
         }
 
-        [Route("v1/categories")]
         [HttpPost]
         public Category Post([FromBody]Category category)
         {
@@ -50,7 +48,6 @@ namespace ProductCatalog.Controllers
             return category;
         }
 
-        [Route("v1/categories")]
         [HttpPut]
         public Category Put([FromBody]Category category)
         {
@@ -60,7 +57,6 @@ namespace ProductCatalog.Controllers
             return category;
         }
 
-        [Route("v1/categories")]
         [HttpDelete]
         public Category Delete([FromBody]Category category)
         {
