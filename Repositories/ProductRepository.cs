@@ -45,5 +45,10 @@ namespace ProductCatalog.Repositories
             _context.Entry<Product>(product).State = EntityState.Modified;
             _context.SaveChanges();
         }
+        public void Remove(Product product)
+        {
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+        }
     }
 }

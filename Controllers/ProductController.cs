@@ -63,19 +63,6 @@ namespace ProductCatalog.Controllers
             };
         }
 
-        [HttpPost]
-        public ResultViewModel Post([FromBody]Product product)
-        {
-            _repository.Save(product);
-
-            return new ResultViewModel
-            {
-                Success = true,
-                Message = "Produto cadastrado com sucesso!",
-                Data = product
-            };
-        }
-
         [HttpPut]
         public ResultViewModel Put([FromBody]EditorProductViewModel model)
         {
@@ -105,6 +92,20 @@ namespace ProductCatalog.Controllers
                 Success = true,
                 Message = "Produto alterado com sucesso!",
                 Data = product
+            };
+        }
+
+        [HttpDelete]
+        public ResultViewModel Delete([FromBody]EditorProductViewModel model)
+        {
+            var product = _repository.Get(model.Id);
+            _repository.Remove(product);
+
+            return new ResultViewModel
+            {
+                Success = true,
+                Message = "Produto removido com sucesso!",
+                Data = null
             };
         }
     }
