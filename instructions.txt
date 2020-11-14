@@ -1,0 +1,39 @@
+# Comando úteis do .Net CLI:
+  º dotnet add package 
+  º dotnet restore
+  º dotnet run 
+  º dotnet build
+  º dotnet new [template]
+
+# Para usar o Mvc no .Net 5 não é necessário adicionar o pacote!
+
+# AspNet Mvc
+  º Para adicionar o MVC ao nosso projeto, devemos:
+    1º Devemos adicionar o serviço MVC no arquivo Startup.cs: 
+      - services.AddMvc(option => option.EnableEndpointRouting = false);
+      
+    2º Agora, devemos configurar a nossa app para usá-lo:
+      - app.UseMvc(); 
+
+--------------------------------------------------------------------------------
+
+# Para usar o Entity Framework, devemos adicionar os seguintes pacotes: 
+  º dotnet add package Microsoft.EntityFrameworkCore;
+  º dotnet add package Microsoft.EntityFrameworkCore.Design;
+  º dotnet add package Microsoft.EntityFrameworkCore.SqlServer.
+
+# Comandos .Net EntityFramework 
+  º dotnet ef add [name] -> Adiciona nova migração
+  º dotnet ef database update -> Aplica a nova migração no banco
+
+# EntityFramework
+  1º Devemos criar um Context para o nosso database (StoreDataContext) 
+
+  2º Nele, devemos configurar a conexão com o database e aplicar os Maps
+  º Maps -> Configurações adicionais para uma determinada tabela
+
+  3º Devemos configurar - no Startup.cs(ConfigureServices) - os nossos context's 
+  e os nossos repository's:
+    - services.AddScoped<StoreDataContext, StoreDataContext>();
+    - services.AddTransient<ProductRepository, ProductRepository>(); 
+
